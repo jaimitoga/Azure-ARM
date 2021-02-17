@@ -15,6 +15,12 @@
         "description": "User name for the Virtual Machine."
       }
     },
+    "namePrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "The Name prefix resoruces"
+      }
+    },
     "storageAccountName": {
       "type": "string",
       "metadata": {
@@ -61,7 +67,7 @@
     },
     "_artifactsLocation": {
       "type": "string",
-      "defaultValue": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/301-dns-forwarder/",
+      "defaultValue": "[deployment().properties.templateLink.uri]",
       "metadata": {
         "description": "The base URI where artifacts required by this template are located."
       }
@@ -76,9 +82,9 @@
   },
   "variables": {
     "ubuntuOSVersion": "18.04-LTS",
-    "asetName": "dnsproxy-avail",
-    "nsgName": "dnsproxy-nsg",
-    "vnetName": "dnsproxy-vnet",
+    "asetName": "[concat(parameters('namePrefix'),'dnsproxy-avail')]",
+    "nsgName": "[concat(parameters('namePrefix'),'dnsproxy-nsg')]",
+    "vnetName": "[concat(parameters('namePrefix'),'dnsproxy-vnet')]",
     "vnetAddressPrefix": "10.0.0.0/8",
     "subNet1Name": "subnet1",
     "subNet1Prefix": "10.1.0.0/16",
