@@ -148,7 +148,7 @@
             "properties": {
               "privateIPAllocationMethod": "Static",
               "privateIPAddress": "[variables('iPAddress')[copyIndex()]]",
-              
+              "publicIPAddress": "[if(equals(copyIndex(), 0), variables('publicIpAddressId'), json('null'))]",
               "subnet": {
                 "id": "[variables('adSubnetRef')]"
               }
@@ -168,6 +168,7 @@
       "dependsOn": [
         "nicLoop"
       ],
+      
       "copy": {
         "name": "vmLoop",
         "count": 2
