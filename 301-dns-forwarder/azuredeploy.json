@@ -67,7 +67,7 @@
     },
     "_artifactsLocation": {
       "type": "string",
-      "defaultValue": "[string(deployment().properties.templateLink.uri)]",
+      "defaultValue": "https://raw.githubusercontent.com/alduar/Azure-ARM/main/301-dns-forwarder/",
       "metadata": {
         "description": "The base URI where artifacts required by this template are located."
       }
