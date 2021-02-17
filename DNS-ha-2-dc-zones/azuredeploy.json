@@ -169,7 +169,7 @@
         "nicLoop"
       ],
       "copy": {
-        "name": "[concat(parameters('prefixName'),'vmLoop')]",
+        "name": "vmLoop",
         "count": 2
       },
       "properties": {
