@@ -137,7 +137,7 @@
       "name": "[variables('nicName')[copyIndex()]]",
       "location": "[parameters('location')]",
       "copy": {
-        "name": "[concat(parameters('prefixName'),'nicLoop')]",
+        "name": "nicLoop'",
         "count": 2
       },
       
