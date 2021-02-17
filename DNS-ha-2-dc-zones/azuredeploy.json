@@ -89,7 +89,7 @@
     ],
     "nicName": [
       "[concat(parameters('prefixName'),'adPDCNic')]",
-      "adBDCNic"
+      "[concat(parameters('prefixName'),'adBDCNic')]"
     ],
     "ipAddress": [
       "10.0.0.4",
