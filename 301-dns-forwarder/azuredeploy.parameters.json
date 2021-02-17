@@ -10,6 +10,9 @@
     },
     "adminPasswordOrKey": {
       "value": "GEN-SSH-PUB-KEY"
+    },
+    "namePrefix": {
+      "value": "qswe-pro"
     }
   }
 }
