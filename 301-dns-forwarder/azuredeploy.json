@@ -4,6 +4,7 @@
   "parameters": {
     "vmName": {
       "type": "string",
+      "defaultValue": "dnsproxy",
       "metadata": {
         "description": "Name of the Virtual Machine."
       }
@@ -66,7 +67,7 @@
     },
     "_artifactsLocation": {
       "type": "string",
-      "defaultValue": "https://raw.githubusercontent.com/alduar/Azure-ARM/main/301-dns-forwarder/",
+      "defaultValue": "[deployment().properties.templateLink.uri]",
       "metadata": {
         "description": "The base URI where artifacts required by this template are located."
       }
@@ -89,8 +90,8 @@
     "subNet1Prefix": "10.1.0.0/16",
     "storType": "Standard_LRS",
     "location": "[parameters('location')]",
-    "nicName": "[concat(parameters('vmName'), '-', 'nic')]",
-    "pipName": "[concat(parameters('vmName'), '-', 'pip')]",
+    "nicName": "[concat(parameters('namePrefix'),parameters('vmName'), '-', 'nic')]",
+    "pipName": "[concat(parameters('namePrefix'),parameters('vmName'), '-', 'pip')]",
     "scriptUrl": "[uri(parameters('_artifactsLocation'), concat('forwarderSetup.sh', parameters('_artifactsLocationSasToken')))]",
     "linuxConfiguration": {
       "disablePasswordAuthentication": true,
@@ -276,7 +277,7 @@
       "apiVersion": "2019-12-01",
       "location": "[variables('location')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines/', concat(parameters('vmName'),parameters('vmName')))]"
+        "[resourceId('Microsoft.Compute/virtualMachines/', concat(parameters('namePrefix'),parameters('vmName')))]"
       ],
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
@@ -291,8 +292,5 @@
         }
       }
     }
-  ],
-  "outputs": {
-    
-  }
+  ]
 }
