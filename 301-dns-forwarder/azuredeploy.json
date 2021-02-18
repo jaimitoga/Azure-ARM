@@ -222,7 +222,7 @@
     {
       "type": "Microsoft.Compute/virtualMachines",
       "comments": "A stock Ubuntu server, a VM extension will add the DNS server to it later",
-      "name": "[parameters('vmName')]",
+      "name": "[concat(parameters('namePrefix'),parameters('vmName'))]",
       "apiVersion": "2019-12-01",
       "location": "[variables('location')]",
       "dependsOn": [
