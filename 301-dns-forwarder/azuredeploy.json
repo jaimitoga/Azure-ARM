@@ -237,7 +237,7 @@
           "vmSize": "[parameters('vmSize')]"
         },
         "osProfile": {
-          "computerName": "[parameters('vmName')]",
+          "computerName": "[concat(parameters('namePrefix'),parameters('vmName'))]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPasswordOrKey')]",
           "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('linuxConfiguration'))]"
@@ -272,11 +272,11 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "comments": "The shell script to install Bind9 and setup the ACL and forwarders.  If this step fails, check the logs in /var/log/waagent.log and /var/log/azure/* for details",
-      "name": "[concat(parameters('vmName'),'/setupdnsfirewall')]",
+      "name": "[concat(parameters('namePrefix'),parameters('vmName'),'/setupdnsfirewall')]",
       "apiVersion": "2019-12-01",
       "location": "[variables('location')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
+        "[resourceId('Microsoft.Compute/virtualMachines/', concat(parameters('vmName'),parameters('vmName')))]"
       ],
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
