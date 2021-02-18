@@ -13,6 +13,9 @@
     },
     "namePrefix": {
       "value": "qswe-pro"
+    },
+    "vName": {
+      "value": "dnsproxy"
     }
   }
 }
