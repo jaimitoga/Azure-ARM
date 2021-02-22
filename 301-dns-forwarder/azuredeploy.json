@@ -103,7 +103,7 @@
     "ubuntuOSVersion": "18.04-LTS",
     "asetName": "[concat(parameters('namePrefix'),'dnsproxy-avail')]",
     "nsgName": "[concat(parameters('namePrefix'),'dnsproxy-nsg')]",
-    "vnetName": "[concat(parameters('namePrefix'),'dnsproxy-vnet')]",
+    "vnetName": "[if(equals(parameters('vmName'),''),concat(parameters('namePrefix'),'dnsproxy-vnet'),parameters('vmName'))]",
     "vnetAddressPrefix": "[parameters('vnetAddressPrefix')]",
     "subNet1Name": "subnet1",
     "subNet1Prefix": "[parameters('subNet1Prefix')]",
@@ -217,7 +217,7 @@
       "dependsOn": [
         "[resourceId('Microsoft.Network/publicIPAddresses/', variables('pipName'))]",
         
-        "[if(equals(parameters('vmName'),'',resourceId('Microsoft.Network/virtualNetworks/',variables('vnetName')),json('null')))]",
+        "[resourceId('Microsoft.Network/virtualNetworks/',variables('vnetName'))]",
         "[resourceId('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]"
       ],
       "properties": {
