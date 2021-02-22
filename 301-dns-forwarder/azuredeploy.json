@@ -36,8 +36,15 @@
     },
     "vnetName": {
       "type": "string",
+      
       "metadata": {
         "description": "The name Vnet to conect Exprres Route"
+      }
+    },
+    "subNetName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name subname to link Exprres Route"
       }
     },
     "vnetAddressPrefix": {
@@ -105,7 +112,7 @@
     "nsgName": "[concat(parameters('namePrefix'),'dnsproxy-nsg')]",
     "vnetName": "[if(equals(parameters('vnetName'),''),concat(parameters('namePrefix'),'dnsproxy-vnet'),parameters('vnetName'))]",
     "vnetAddressPrefix": "[parameters('vnetAddressPrefix')]",
-    "subNet1Name": "subnet1",
+    "subNet1Name": "[if(equals(parameters('vnetName'),''),concat(parameters('namePrefix'),concat(parameters('namePrefix'),'subnet1')),parameters('subNetName'))]",
     "subNet1Prefix": "[parameters('subNet1Prefix')]",
     "storType": "Standard_LRS",
     "location": "[parameters('location')]",
@@ -176,7 +183,7 @@
       }
     },
     {
-      
+      "condition":"[equals(parameters('vnetName'),'')]",
       "type": "Microsoft.Network/virtualNetworks",
       "comments": "An example virtual network, for real scenarios add the DNS forwarder to your own vnet",
       "name": "[variables('vnetName')]",
