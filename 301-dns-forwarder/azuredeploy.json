@@ -36,7 +36,6 @@
     },
     "vnetName": {
       "type": "string",
-      
       "metadata": {
         "description": "The name Vnet to conect Exprres Route"
       }
@@ -49,6 +48,7 @@
     },
     "vnetAddressPrefix": {
       "type": "string",
+      "defaultValue":"",
       "metadata": {
         "description": "The IP Vnet to conect Exprres Route"
       }
@@ -56,6 +56,7 @@
     
     "subNet1Prefix": {
       "type": "string",
+      "defaultValue":"",
       "metadata": {
         "description": "The IP SubNet"
       }
@@ -223,7 +224,6 @@
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
-      
       "comments": "A single network interface on each DNS server",
       "name": "[variables('nicName')]",
       "apiVersion": "2020-05-01",
