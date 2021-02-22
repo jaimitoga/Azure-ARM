@@ -4,7 +4,7 @@
   "parameters": {
     "vmName": {
       "type": "string",
-      "defaultValue": "sdnsproxy",
+      "defaultValue": "serverdnsproxy",
       "metadata": {
         "description": "Name of the Virtual Machine."
       }
@@ -116,11 +116,9 @@
     "ubuntuOSVersion": "18.04-LTS",
     "asetName": "[concat(parameters('namePrefix'),'dnsproxy-avail')]",
     "nsgName": "[concat(parameters('namePrefix'),'dnsproxy-nsg')]",
-    "vnetName": "[if(equals(parameters('vnetName'),''),concat(parameters('namePrefix'),concat(parameters('namePrefix'),'dnsproxy-vnet')),
-    resourceId(parameters('resoruceNameVnetLocation'),'Microsoft.Network/virtualNetworks', parameters('vnetName')))]",
+    "vnetName": "[if(equals(parameters('vnetName'),''),concat(parameters('namePrefix'),concat(parameters('namePrefix'),'dnsproxy-vnet')),resourceId(parameters('resoruceNameVnetLocation'),'Microsoft.Network/virtualNetworks', parameters('vnetName')))]",
     "vnetAddressPrefix": "[parameters('vnetAddressPrefix')]",
-    "subNet1Name": "[if(equals(parameters('vnetName'),''),concat(parameters('namePrefix'),concat(parameters('namePrefix'),'subnet1')),
-     resourceId(parameters('resoruceNameVnetLocation'),'Microsoft.Network/virtualNetworks/subnets',parameters('subNetName')))]",
+    "subNet1Name": "[if(equals(parameters('vnetName'),''),concat(parameters('namePrefix'),concat(parameters('namePrefix'),'subnet1')),resourceId(parameters('resoruceNameVnetLocation'),'Microsoft.Network/virtualNetworks/subnets',parameters('subNetName')))]",
     "subNet1Prefix": "[parameters('subNet1Prefix')]",
     "storType": "Standard_LRS",
     "location": "[parameters('location')]",
