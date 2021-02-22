@@ -103,7 +103,7 @@
     "ubuntuOSVersion": "18.04-LTS",
     "asetName": "[concat(parameters('namePrefix'),'dnsproxy-avail')]",
     "nsgName": "[concat(parameters('namePrefix'),'dnsproxy-nsg')]",
-    "vnetName": "[if(equals(parameters('vmName'),''),concat(parameters('namePrefix'),'dnsproxy-vnet'),parameters('vmName'))]",
+    "vnetName": "[if(equals(parameters('vnetName'),''),concat(parameters('namePrefix'),'dnsproxy-vnet'),parameters('vnetName'))]",
     "vnetAddressPrefix": "[parameters('vnetAddressPrefix')]",
     "subNet1Name": "subnet1",
     "subNet1Prefix": "[parameters('subNet1Prefix')]",
@@ -176,7 +176,7 @@
       }
     },
     {
-      "condition":"[equals(parameters('vmName'),'')]",
+      "condition":"[equals(parameters('vnetName'),'')]",
       "type": "Microsoft.Network/virtualNetworks",
       "comments": "An example virtual network, for real scenarios add the DNS forwarder to your own vnet",
       "name": "[variables('vnetName')]",
@@ -233,7 +233,7 @@
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('pipName'))]"
               },
               "subnet": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',if(equals(parameters('vmName'),''),variables('vnetName'),parameters('vmName')) , variables('subnet1Name'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',if(equals(parameters('vnetName'),''),variables('vnetName'),parameters('vmName')) , variables('subnet1Name'))]"
               }
             }
           }
