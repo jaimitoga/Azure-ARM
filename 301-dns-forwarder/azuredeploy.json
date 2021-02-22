@@ -4,7 +4,7 @@
   "parameters": {
     "vmName": {
       "type": "string",
-      "defaultValue": "dnsproxy",
+      "defaultValue": "sdnsproxy",
       "metadata": {
         "description": "Name of the Virtual Machine."
       }
@@ -32,6 +32,25 @@
       "defaultValue": "168.63.129.16",
       "metadata": {
         "description": "This is the IP address to forward DNS queries to. The default value represents Azure's internal DNS recursive resolvers."
+      }
+    },
+    "vnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name Vnet to conect Exprres Route"
+      }
+    },
+    "vnetAddressPrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "The IP Vnet to conect Exprres Route"
+      }
+    },
+    
+    "subNet1Prefix": {
+      "type": "string",
+      "metadata": {
+        "description": "The IP SubNet"
       }
     },
     "location": {
@@ -85,9 +104,9 @@
     "asetName": "[concat(parameters('namePrefix'),'dnsproxy-avail')]",
     "nsgName": "[concat(parameters('namePrefix'),'dnsproxy-nsg')]",
     "vnetName": "[concat(parameters('namePrefix'),'dnsproxy-vnet')]",
-    "vnetAddressPrefix": "10.0.0.0/8",
+    "vnetAddressPrefix": "[parameters('vnetAddressPrefix')]",
     "subNet1Name": "subnet1",
-    "subNet1Prefix": "10.1.0.0/16",
+    "subNet1Prefix": "[parameters('subNet1Prefix')]",
     "storType": "Standard_LRS",
     "location": "[parameters('location')]",
     "nicName": "[concat(parameters('namePrefix'),parameters('vmName'), '-', 'nic')]",
@@ -157,6 +176,7 @@
       }
     },
     {
+      "condition":"[equals(parameters('vmName'),'')]",
       "type": "Microsoft.Network/virtualNetworks",
       "comments": "An example virtual network, for real scenarios add the DNS forwarder to your own vnet",
       "name": "[variables('vnetName')]",
@@ -196,7 +216,8 @@
       "location": "[variables('location')]",
       "dependsOn": [
         "[resourceId('Microsoft.Network/publicIPAddresses/', variables('pipName'))]",
-        "[resourceId('Microsoft.Network/virtualNetworks/', variables('vnetName'))]",
+        
+        "[if(equals(parameters('vmName'),'',resourceId('Microsoft.Network/virtualNetworks/',variables('vnetName')),json('null')))]",
         "[resourceId('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]"
       ],
       "properties": {
@@ -212,7 +233,7 @@
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('pipName'))]"
               },
               "subnet": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), variables('subnet1Name'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',if(equals(parameters('vmName'),''),variables('vnetName'),parameters('vmName')) , variables('subnet1Name'))]"
               }
             }
           }
