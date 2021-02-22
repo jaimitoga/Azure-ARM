@@ -116,9 +116,11 @@
     "ubuntuOSVersion": "18.04-LTS",
     "asetName": "[concat(parameters('namePrefix'),'dnsproxy-avail')]",
     "nsgName": "[concat(parameters('namePrefix'),'dnsproxy-nsg')]",
-    "vnetName": "[if(equals(parameters('vnetName'),''),concat(parameters('namePrefix'),concat(parameters('namePrefix'),'dnsproxy-vnet')),parameters('vnetName'))]",
+    "vnetName": "[if(equals(parameters('vnetName'),''),concat(parameters('namePrefix'),concat(parameters('namePrefix'),'dnsproxy-vnet')),
+    resourceId(parameters('resoruceNameVnetLocation'),'Microsoft.Network/virtualNetworks', parameters('vnetName')))]",
     "vnetAddressPrefix": "[parameters('vnetAddressPrefix')]",
-    "subNet1Name": "[if(equals(parameters('vnetName'),''),concat(parameters('namePrefix'),concat(parameters('namePrefix'),'subnet1')),parameters('subNetName'))]",
+    "subNet1Name": "[if(equals(parameters('vnetName'),''),concat(parameters('namePrefix'),concat(parameters('namePrefix'),'subnet1')),
+     resourceId(parameters('resoruceNameVnetLocation'),'Microsoft.Network/virtualNetworks/subnets',parameters('subNetName')))]",
     "subNet1Prefix": "[parameters('subNet1Prefix')]",
     "storType": "Standard_LRS",
     "location": "[parameters('location')]",
@@ -231,7 +233,7 @@
       "location": "[variables('location')]",
       "dependsOn": [
         "[resourceId('Microsoft.Network/publicIPAddresses/', variables('pipName'))]",
-        "[resourceId(subscription().subscriptionId,parameters('resoruceNameVnetLocation'),'Microsoft.Network/virtualNetworks/',variables('vnetName'))]",
+        "[resourceId(parameters('resoruceNameVnetLocation'),'Microsoft.Network/virtualNetworks/',variables('vnetName'))]",
         "[resourceId('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]"
       ],
       "properties": {
