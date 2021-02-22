@@ -250,7 +250,7 @@
               },
               "subnet": {
                 
-                "id": "[resourceId(subscription().subscriptionId,parameters('resoruceNameVnetLocation'),'Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), variables('subnet1Name'))]"
+                "id": "[resourceId(parameters('resoruceNameVnetLocation'),'Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), variables('subnet1Name'))]"
               }
             }
           }
