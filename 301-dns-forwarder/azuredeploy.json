@@ -139,30 +139,7 @@
       }
     }
   },
-  "resources": [
-     {
-      "condition":"[equals(parameters('vnetName'),'')]",
-      "apiVersion": "2020-06-01",
-      "type": "Microsoft.Network/virtualNetworks",
-      "comments": "An example virtual network, for real scenarios add the DNS forwarder to your own vnet",
-      "name": "[variables('vnetName')]",
-      "location": "[variables('location')]",
-      "properties": {
-        "addressSpace": {
-          "addressPrefixes": [
-            "10.0.0.0/16"
-          ]
-        },
-        "subnets": [
-          {
-            "name": "[variables('subnet1Name')]",
-            "properties": {
-              "addressPrefix": "10.0.0.0/24"
-            }
-          }
-        ]
-      }
-    },
+  "resources": [     
     {
       "type": "Microsoft.Storage/StorageAccounts",
       "comments": "Storage account for the VHD files for the VMs",
