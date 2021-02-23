@@ -48,7 +48,7 @@
     },
     "vnetAddressPrefix": {
       "type": "string",
-      "defaultValue":"",
+      "defaultValue":"10.0.0.0/16",
       "metadata": {
         "description": "The IP Vnet to conect Exprres Route"
       }
@@ -56,7 +56,7 @@
     
     "subNet1Prefix": {
       "type": "string",
-      "defaultValue":"",
+      "defaultValue":"10.0.0.0/24",
       "metadata": {
         "description": "The IP SubNet"
       }
